@@ -4,8 +4,8 @@
 
 # 初始化配置
 
-- 用户名称：sgit config --global user.name ""
-- 电子邮箱地址：git config --global user.email 
+- 用户名称：sgit config --global user.name "名字拼音"
+- 电子邮箱地址：git config --global user.email 邮箱号
 - 检查已有的配置信息： git config --list
   --global 表示这台机器上的所有仓库都会使用这个配置
 
