@@ -4,8 +4,8 @@
 
 # 初始化配置
 
-- 用户名称：sgit config --global user.name "yushumin"
-- 电子邮箱地址：git config --global user.email 1914274610@qq.com
+- 用户名称：sgit config --global user.name ""
+- 电子邮箱地址：git config --global user.email 
 - 检查已有的配置信息： git config --list
   --global 表示这台机器上的所有仓库都会使用这个配置
 
@@ -146,10 +146,8 @@ https://github.com/4274610/Git-.git
 4. 在 github 上 setting 里添加公钥，pull 代码和 push 代码就可以用 ssh 免密登录了
 5. ssh -T git@gitee.com测试公钥是否在码云上配置
 
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDjydHsTpdIs4uYd/iOlq3SpPxkwWwJViqfPzR/WtCNVCd7DVL+3cj8jiiP39Ds0h9qV6gKmCF3NUBKcUbUyZFh4s4kw+ZDNYJC/yeaZlaWdAQYUI5YbxBnaNtX2ZIfhJAa73ygfILqvIB/KyM0LB/Hzj8POzxlN/02x65GZ5mjyVSJNRE3In4VGiopp7hHeomooxEJt92UajZLX4IslXptngGOHOzZrjXhbXHOkNdgrd6PBV+kIthw9gpocLbzXJR3x7y62ovMKMA6ZuYxjLE/SJLhpGL/7nP5zsDbWi1R3LIvlwlqrEDL+AadaEt5jBTQRvAUlcJU8JF0zHhYpgar9mhZRl/y0QLPsqNcBkyTxsxW4jJnBCG24sMH8E6qWAX+0oToHU7mglrHsFBfndUemZsGgF1MaT8AqxTHQPb6g0Cks0Rt9FoAM1zr/fOmzpeDUHEpVk3BATz0G+M9/VrRAXpPvKP/cGFVnLZNzH7na6UXmw12U8ksQTEf/M0Efuk= 1914274610@qq.com
-
-
-
+ssh-rsa
+具体密钥在微信收藏里面
 
 ## 区域
 
