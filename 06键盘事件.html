@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./vue.js"></script>
+  </head>
+  <body>
+    <!-- 1、Vue常用的按键别名 -->
+    <!-- 回车—>enter 
+         删除—>delete 捕获删除和退格键
+         退出—>esc
+         空格—>space
+         换行—>tab  必须配合keydown使用
+         上—>up
+         下—>down
+         左—>left
+         右—>right   
+    -->
+    <!-- 2、未提供别名的按键，可以使用按键原始的key值去绑定，但注意要转为caps-lock(小写加短横线命名) -->
+    <!-- 3、系统修饰键(用法特殊)：ctrl alt shift meta
+        (1)配合keyup使用，输入完内容后，按修饰键+其他键，然后释放其他键，事件才能被触发
+        @keyup.alt.y加上.y指定一个其他键y，不加.那就是随意按一个键就可以
+        (2)keydown使用，正常使用
+     -->
+     <!-- 4、可以使用KeyCodes去指定具体的按键，已废弃不推荐 -->
+     <!-- 5、Vue.config.KeyCodes.自定义键名=键码，可以定制按键别名 -->
+  <div id="root">
+    <h1>欢迎来到{{name}}</h1>
+    <input type="text" placeholder="按下回车键提示输入" @keyup.alt.y="showInfo">
+  </div>
+  <script>
+    Vue.config.productionTip=false;
+    //Vue.config.KeyCodes.huiche=13;//定制按键别名 
+    const vm=new Vue({
+        el:"#root",
+        data:{
+            name:"尚硅谷"
+        },
+        methods:{
+            showInfo(e){
+                // console.log(e.key,e.keyCode);
+                console.log(e.target.value);//拿到input的value值
+            }
+        }
+    })
+  </script>
+</body>
+</html>
