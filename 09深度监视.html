@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h2>a的值是{{number.a}}</h2>
+      <button @click="number.a++">a加一</button>
+      <h2>b的值是{{number.b}}</h2>
+      <button @click="number.b++">b加一</button>
+      <!-- 多级属性结构中的值，需要加属性名的前缀 -->
+    </div>
+    <script>
+      Vue.config.productionTip = false;
+      const vm = new Vue({
+        el: "#root",
+        data: {
+          number: {
+            a: 1,
+            b: 1,
+          },
+        },
+        watch: {
+          //监视多级结构中某个属性的变化，需要加引号
+          "number.a": {
+            handler() {
+              console.log("a被修改了");
+            },
+          },
+          //监视多级给狗中所有属性的变化 deep:true
+          number: {
+            deep: true,
+            handler() {
+              console.log("number被修改了");
+            },
+          },
+        },
+      });
+      //深度监视
+      //Vue中的watch默认不监测对象内部值的改变，一层
+      //配置depp.true可以监测到对象内部值的改变，多层
+      //Vue自身可以监测对象内部值的改变，但Vue提供的watch属性默认不可以
+      //为了开发效率，使用watch时根据数据的具体结构，决定是否使用深度监视
+    </script>
+  </body>
+</html>
