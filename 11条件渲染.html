@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <div>当前n的值是:{{n}}</div>
+      <button @click="n++">点我n+1</button>
+      <!-- 条件要false或true -->
+      <!-- 一、v-show做条件渲染 ，切换频繁时用v-show。
+     使用v-show，节点元素可以获取到,条件当条件为false时，v-show把标签display设置为none，控制隐藏-->
+      <div v-show="false">Angulsr</div>
+      <div v-show="n===1">React</div>
+      <div v-show="true">Vue</div>
+      <hr />
+      <!--二、 v-if做条件渲染，切换频率较低的场景使用
+     使用v-if，节点元素获取不到，暴力隐藏-->
+      <div v-if="n===1">Angulsr</div>
+      <div v-if="n===2">React</div>
+      <div v-if="n===3">Vue</div>
+      <hr />
+
+      <!-- 1、多个判断时，如果都用v-if，每一个条件都会走一遍，如果是v-else-if，找到符合的条件就会停止，下面就不再判断了，效率更高 -->
+      <!-- v-else-if和v-else，不能被打断 -->
+      <div v-if="n===1">Angulsr</div>
+      <div v-else-if="n===2">React</div>
+      <div v-else-if="n===3">Vue</div>
+      <div v-else>哈哈</div>
+      <!--前面的都不成立，就执行v-else，v-else不需要写条件  -->
+
+      <!-- 2、v-if和template的配合使用
+     使用template不会破坏整体额结构-->
+      <template v-if="n===1">
+        <h2>你好</h2>
+        <h2>尚硅谷</h2>
+        <h2>北京</h2>
+      </template>
+    </div>
+    <script>
+      Vue.config.productionTip = false;
+      const vm = new Vue({
+        el: "#root",
+        data: {
+          n: 0,
+        },
+      });
+    </script>
+  </body>
+</html>
