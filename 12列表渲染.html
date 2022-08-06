@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h3>v-for遍历数组</h3>
+      <ul>
+        <!--一、 v-for遍历数组，for in 和for of 都行，可以传两个参数 -->
+        <li v-for="p in persons" :key="p.id">{{p.name}}-{{p.age}}</li>
+        <hr />
+        <li v-for="(p,index) in persons" :key="index">{{p.name}}-{{p.age}}</li>
+        
+        <!-- <li v-for="p of persons" :key="p.id">{{p.name}}-{{p.age}}</li>
+        <li v-for="(p,index) of persons" :key="index">{{p.name}}-{{p.age}}</li> -->
+      </ul>
+      <h3>v-for遍历对象</h3>
+      <ul>
+        <!-- 二、v-for遍历对象 -->
+        <li v-for="(val,k) in car" :key="k">{{k}}:{{val}}</li>
+      </ul>
+      <h3>v-for遍历字符串</h3>
+      <ul>
+        <!-- 三、v-for遍历字符串，不常用-->
+        <li v-for="(char,index) in str" :key="index">{{char}}</li>
+      </ul>
+      <h3>v-for遍历指定次数</h3>
+      <ul>
+        <!-- 三、v-for遍历字符串，不常用-->
+        <li v-for="(number,index) in 6" :key="index">{{number}}</li>
+      </ul>
+    </div>
+    <script>
+      Vue.config.productionTip = false;
+      const vm = new Vue({
+        el: "#root",
+        data: {
+          persons: [
+            { id: "1", name: "张三", age: 18 },
+            { id: "2", name: "李四", age: 19 },
+            { id: "3", name: "王五", age: 20 },
+          ],
+          car: {
+            name: "奥迪",
+            price: "70w",
+            color: "白色",
+          },
+          str:"iloveu"
+        },
+      });
+    </script>
+  </body>
+</html>
