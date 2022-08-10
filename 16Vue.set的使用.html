@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+    <h1>学校信息</h1>
+    <h2>学校：{{name}}</h2>
+    <h2>地址：{{address}}</h2>
+
+    <h1>学生信息</h1>
+    <h2 v-if="student.name">姓名：{{student.name}}</h2>
+    <h2>年龄：{{student.age}}</h2>
+    <button @click="addSex">添加学生性别属性</button>
+    <button @click="deleteName">删除学生姓名属性</button>
+    <h2 v-if="student.sex">性别：{{student.sex}}</h2>
+    <h2>爱好</h2>
+    <ul>
+      <li v-for="(h,index) in hobby" :key="index" @click="addSex">{{h}}</li>
+    </ul>
+    <button @click="newHobby">更新爱好</button>
+
+   
+
+
+</div>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+    const vm = new Vue({
+      el: "#root",
+      data: {
+        name:"尚硅谷",
+        address:"北京",
+        student:{
+            name:"Tom",
+            age:19,            
+        },
+        hobby:["看书","唱歌","游戏","打台球"]       
+      },
+      methods:{
+        addSex(){
+          //在student对象里添加一个学生性别属性
+            Vue.set(this.student,"sex","男")
+            // this.$set(this.student,"sex","男")
+            //修改hobby数组的中的一个元素
+            Vue.set(this.hobby,3,"学习")
+        },
+        deleteName(){
+        //  delete this.student.name //这种方法是不行的
+        this.$delete(this.student, "name")
+        Vue.delete(this.student, "name")//两种写法
+        },
+        newHobby(){this.hobby.splice(3,0,"旅游")}
+      }
+    });
+    //Vue.set(target,key,value)
+    //Vue.set(target,要被修改的index,替换后的value)
+    //vm.$set(target,key,value)
+
+    //vue2存在问题：
+    // 直接新增属性、删除属性，界面不会更新
+    // 直接通过下标修改数组，界面不会自动更新
+    
+  </script>
+</html>
