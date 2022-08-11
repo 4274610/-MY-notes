@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+    <form  @submit.prevent="demo">
+        <!-- 阻止默认事件看一下打印出来的json格式，如果不阻止，就会提交 ，看不到打印出来的内容-->
+        账号: <input type="text" v-model.trim="userInfo.account"><br><br>
+        密码: <input type="password" v-model="userInfo.password"><br><br>
+        年龄： <input type="number" v-model.number="userInfo.age"><br><br>
+        <!-- input的number控制只能输入数字，
+            修饰符.number 输入字符串转为数字，做一个数据转换，
+            不加修饰符.number，前面的数据类型会呈现一个字符串的形式，
+            两个配合使用 -->
+        性别: <input type="radio" name="sex" value="male" v-model="userInfo.sex">男
+        <input type="radio" name="sex" value="female" v-model="userInfo.sex">女<br><br>
+        爱好: <input type="checkbox" name="sing" v-model="userInfo.hobby" value="sing">唱歌
+        <input type="checkbox" name="dance" v-model="userInfo.hobby" value="dance">跳舞
+        <input type="checkbox" name="study" v-model="userInfo.hobby" value="study">学习<br><br>
+        所属校区: <select v-model="userInfo.school">
+            <option value="">请选择校区</option>
+            <option value="beijing" >北京</option>
+            <option value="shanghai" >上海</option>
+            <option value="shenzhen">深圳</option>
+            <option value="wuhan">武汉</option>
+        </select><br><br>
+        其他信息: <textarea cols="30" rows="10" v-model.lazy="userInfo.other"></textarea><br><br>
+        <input type="checkbox" v-model="userInfo.agree"> 阅读并接受 <a href="http://baidu.com">《用户协议》</a><br><br>
+        <button>提交</button>
+    </form>
+</div>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+    const vm = new Vue({
+      el: "#root",
+      data: {
+        userInfo:{
+           account:"" ,
+           password:"",
+           age:"",
+           sex:"",
+           hobby:[],
+           school:"",
+           other:"",
+           agree:""
+      },
+    },
+      methods:{
+        demo(){
+            console.log(JSON.stringify(this.userInfo));
+            console.log(1456);
+
+        }
+      }  
+      });
+   
+  
+    
+
+    // 一、v-model默认收集输入框的value值
+    // 1、<input type="text" />用户能输入value值，直接配置v-model=""
+    // 2、<input type="radio"/ >用户无法输入value值,需要手动多配置一个value值，value="",v-model=""
+    // 3、<input type="checkbox"/ >用户无法输入value值
+    // （1）没有配置value值，比如hobby，
+    // v-model的初始值是数组，比如hobby，收集的就是value组成的数组
+    // v-model的初始值是非数组，比如字符串，收集的就是checked,勾选true或者未勾选false
+    // （2）没有配置了value值，比如agree
+    // 收集的就是checked,勾选true或者未勾选false
+
+    //二、 v-model修饰符：
+    // .lazy 失去焦点再收集 
+    // .number 输入字符串转为有效数据
+    // .trim 输入前后空格过滤
+
+    //三、把收集好的表单数据整理成json格式，通过ajax传给后端
+
+
+  </script>
+</html>
