@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="root">
+      <div v-cloak>{{name}}</div>
+      <!-- 页面先出现，Vue实例创建完毕，模板被解析，页面上进行渲染 -->
+      <!-- v-cloak指令没有值
+      1、本质是一个特殊属性，Vue实例创建完毕并接管容器后，会删掉 v-cloak
+      2、使用css配合 v-cloak可以解决网速慢时页面展示出的{{xxx}} 
+      -->
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      Vue.config.productionTip = false;
+      const vm = new Vue({
+        el: "#root",
+        data: {
+          name: "好学校尚硅谷",
+        },
+      });
+    </script>
+  </body>
+</html>
