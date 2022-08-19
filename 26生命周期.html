@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root">
+      <h2 :style="{opacity}">Vue全家桶之生命周期</h2>
+      <!-- :style="{opacity:opacity}" 键值对是对象的形式，所以要加花括号-->
+      <button @click="add">{{n}}</button>
+      <button @click="bye">点我销毁vm</button>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      Vue.config.productionTip = false;
+      const vm = new Vue({
+        el: "#root",
+        data: {
+          opacity: 1,
+          n: 1,
+        },
+        methods: {
+          add() {
+            console.log("add被调用了");
+            this.n++;
+          },
+          bye() {
+            this.$destroy(); //如果不加清除定时器，虽然页面不动了，定时器还在动，在beforeDestroy里清除
+            // clearInterval(this.timer)
+          },
+          //完全销毁一个实例，清理它与其他组件实例的连接，解绑它的全部指令及自定义事件监听器，触发beforeDestroy和destroyed钩子
+          //大多数场景中，不应该使用这个方法
+        },
+        beforeCreate() {}, //数据监测、数据代理创建前
+        //beforeCreate无法通过vm访问到data中的数据,methods中的方法
+        created() {}, //数据监测、数据代理创建完毕
+        //created可以通过vm访问到data中的数据,methods中的方法
+        beforeMount() {
+          //beforeMount挂载之前，在这里操作DOM是不生效的
+        },
+        mounted() {
+          //Vue完成模板的解析并把初始的真实DOM元素放入页面后（挂载完毕）调用mounted，只调用一次
+          //一般在此进行：开启定时器、发送网络请求、订阅消息、绑定自定义事件等初始化操作
+          this.timer = setInterval(() => {
+            console.log("setInterval");
+            this.opacity -= 0.01;
+            if (this.opacity <= 0) this.opacity = 1;
+          }, 16);
+        },
+        beforeUpdate() {},
+        //beforeUpdate此时数据是新的，页面是旧的，页面尚未和数据保持同步
+        updated() {},
+        //updated更新数据，生成新的虚拟DOM，和旧的虚拟DOM进行比较，最终完成页面更新，即完成了Model到View的更新
+        beforeDestroy() {
+          clearInterval(this.timer);
+        },
+        //beforeDestroy进行收尾工作，解绑事件、清除定时器、取消订阅
+        destroyed() {},
+      });
+      // 生命周期、生命周期回调函数、生命周期函数、生命周期钩子
+      // 生命周期是什么？Vue在关键时刻帮我们调用的一些特殊名称的函数
+      // 生命周期函数的名字不可更改，但是函数的内容是自己编写的
+      // 生命周期的this指向的是vm 或 组件实例对象
+      // 常用的生命周期钩子：mounted beforeDestroy
+      // 关于销毁Vue实例：销毁后在开发者工具里看不到任何信息，销毁后自定义事件会失效，但原生DOM事件依然有效，一般不会在beforeDestroy操作数据，因为即使操作数据也不会再触发更新流程了
+    </script>
+  </body>
+</html>
