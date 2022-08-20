@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h2>{{msg}}</h2>
+      <!-- 3、编写组件标签 -->
+      <school></school>
+      <hr />
+      <student></student>
+      <hr />
+      <!-- 代码的复用 -->
+      <student/>
+      <student/>
+      <!-- 自闭合会导致后续组件不能渲染 -->
+    </div>
+
+    <script>
+      Vue.config.productionTip = false;
+      // 组件--实现应用中局部功能代码和资源的集合
+      //1、创建组件
+      const school = Vue.extend({
+        //非单文件组件的html写法
+      
+        template: ` 
+         <div>
+         <h2>学校名字：{{schoolName}}</h2>
+         <h2>学校地址：{{address}}</h2>
+         <button @click="sayName">点我提示学校名</button>
+         </div> `,
+        data() {
+          return {
+            schoolName: "尚硅谷",
+            address: "北京",
+          };
+        },
+        methods: {
+          sayName() {
+            alert("尚硅谷");
+          },
+        },
+      });
+      const student = Vue.extend({
+        name:"xuesheng",//使用name配置项指定组件在开发者工具中呈现的名字,其他地方不变
+        template: ` 
+         <div>
+         <h2>学生姓名：{{studentName}}</h2>
+         <h2>学生年龄：{{age}}</h2>
+         </div> `,
+        data() {
+          return {
+            studentName: "张三",
+            age: 18,
+          };
+        },
+      });
+      //2、注册组件，（1）局部注册
+      new Vue({
+        el: "#root",
+        data: {
+          msg: "哈喽",
+        },
+        components: {
+          school, //简写方式
+          student,
+        },
+      });
+      //（2）全局注册
+      Vue.component("school", school);
+      //第一个school是为组件定义的名称，第二个school是上面定义的变量
+
+      //一、关于组件名的写法
+      //1、一个单词组成：(1)首字母小写 ：school  (2)首字母大写 ：School
+      //2、两个单词组成：(1)短横杠kebab-case命名：my-school  (2)大驼峰CamelCase命名 ：MySchool，需要用在Vue脚手架中
+      //  备注：组件名要回避HTML中已有元素名称，可以使用name配置项指定组件在开发者工具中呈现的名字
+      //二、关于组件标签
+      //  第一种写法 <student></student>
+      //  第二种写法 <student/>自闭合会导致后续组件不能渲染，所以在脚手架中使用
+      //三、简写形式
+      // const school = Vue.extend ({options})简写成const school = {options}
+    </script>
+  </body>
+</html>
