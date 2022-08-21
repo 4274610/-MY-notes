@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      
+    </div>
+    <script>
+      // 关于VueComponent
+      // 1、school组件本质上是一个名为VueComponent的构造函数，是Vue.extend生成的
+      // 2、我们只需要写<school></school>Vue才会帮我们new一个VueComponent(options)，【即Vue解析时会帮我们创建school组件的实例对象】
+      // 3、特别注意：每次调用Vue.extend，返回的都是一个全新的VueComponent
+      // 4、关于this指向：
+      // (1)组件配置中：data函数、methods中的函数、watch中的函数、computed中的函数，this指向的是【VueComponent实例对象】
+      // (2)new Vue(options)配置中：data函数、methods中的函数、watch中的函数、computed中的函数，this指向的是【Vue实例对象】
+      // 5、VueComponent实例对象，就是组件实例对象，简称为vc
+      // Vue实例对象,简称vm,区别在于el和data的写法
+
+      Vue.config.productionTip = false;
+      const student = Vue.extend({
+        template: ` 
+         <div>
+         <h2>学生姓名：{{studentName}}</h2>
+         <h2>学生年龄：{{age}}</h2>      
+         </div> `,
+        data() {
+          return {
+            studentName: "张三",
+            age: 18,
+          };
+        },
+      });
+      //1、student组件在school组件中
+      const school = Vue.extend({
+        template: ` 
+         <div>
+         <h2>学校名字：{{schoolName}}</h2>
+         <h2>学校地址：{{address}}</h2>
+         <student></student>
+         </div> `,
+        data() {
+          return {
+            schoolName: "尚硅谷",
+            address: "北京",
+          };
+        },
+        components: {
+          student: student,
+        },
+      });
+      // 2、定义一个和school平级的组件hello
+      const hello = Vue.extend({
+        template: ` 
+         <h2>{{msg}}</h2>   
+         `,
+        data() {
+          return { msg: "哈喽!!!" };
+        },
+      });
+      // 3、定义一个app组件管理所有组件
+      const app = Vue.extend({
+        template: `
+        <div>
+        <hello></hello>
+        <school></school>
+        </div>
+        `,
+        components: {
+          school,
+          hello
+        },
+      });
+
+      //4、Vue只管理一个app
+      new Vue({
+        el: "#root",
+        template:`<app></app>`,
+        components: {
+          app
+        },
+      });
+    </script>
+  </body>
+</html>
