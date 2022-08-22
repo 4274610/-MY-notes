@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button>保存一个数据</button>
+    <button>读取一个数据</button>
+    <button>删除一个数据</button>
+    <button>清空一个数据</button>   
+
+    <script>
+    // localStorage
+    // sessionStorage
+   
+    let btn=document.querySelectorAll("button")
+
+    btn[0].onclick=function(){
+        let p={
+            name:"ls",
+            age:18
+        }
+        localStorage.setItem("name","zs")//必须是存储字符串的形式
+        localStorage.setItem("person",JSON.stringify(p))//把对象转换成字符串的形式
+    }
+    btn[1].onclick=function(){
+     console.log(localStorage.getItem("name"));   
+     console.log(localStorage.getItem("person")); 
+     console.log(JSON.parse( localStorage.getItem("person")));   //把json格式的字符串解析成对象
+    }
+    btn[2].onclick=function(){
+        localStorage.removeItem("name")
+    }
+    btn[3].onclick=function(){
+        localStorage.clear()
+    }
+</script>
+</body>
+</html>
