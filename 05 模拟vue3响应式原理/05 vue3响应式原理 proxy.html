@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    
+    <script>
+      
+      let person = {
+        name: "张三",
+        age: "18",
+      };
+      //模拟vue3中的响应式
+      //通过Proxy（代理）拦截对象中任意属性的变化，增删改查
+      //通过Reflect（反射）对源对象的属性进行操作
+      const p = new Proxy(person, {
+        //读取p的属性时，get被调用
+        get(target, propName) {
+          console.log(`有人读取了p身上的${propName}属性`, "@@@@", target[propName]);
+          // return target[propName];
+           return Reflect.get( target,propName);
+          //中括号操作符: 动态的。会被解析成变量访问
+          //target["propName"]如果加上引号，propName也会被解析为静态的字符串，所以这里不加引号
+          //点操作符: 静态的,用.的话propName会被解析为字符串，但是p身上只有name和age      
+        },
+        //增加一个属性，修改某个属性时，set被调用
+        set(target, propName,value) {
+            console.log(`有人修改了p身上的${propName}属性，我要去更新页面了`);
+          // target[propName]=value;
+           Reflect.set (target,propName,value);
+        },
+        //删除某个属性时，deleteProperty被调用
+        deleteProperty(target, propName){
+          console.log(`有人删除了p身上的${propName}属性，我要去更新页面了`);
+          // return delete target[propName]
+          return Reflect.deleteProperty(target, propName)
+        }
+      });
+    </script>
+  </body>
+</html>
